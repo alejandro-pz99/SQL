@@ -29,7 +29,7 @@ VALUES
      
 -- © Copyright 2025 Break Into Tech  --
 
-#For this project, I used SQL to query the Superstore database to get information about items sold at the store. I inquired regarding item price, average rating, and stock quantity.
+#For this project, I used SQL to query the Superstore database to get information about items sold at the store and their prices.
 
 #Use a SELECT statement to order the items by price.
 SELECT item_name, price
