@@ -87,6 +87,7 @@ GROUP BY company_name
 HAVING avg_employee_tenure >= 5;
 
 # How many companies are there per industry?
+
 SELECT industry, COUNT(*) AS company_amount
 FROM fortune_companies
 GROUP BY industry
