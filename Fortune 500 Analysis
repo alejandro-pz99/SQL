@@ -60,7 +60,7 @@ VALUES
 
 # Analysis:
 
-# Which companies provide healthcare benefits and are in the technology industry?
+# Which companies provide healthcare benefits, and are in the technology industry?
 
 SELECT company_name
 FROM fortune_companies
