@@ -1,0 +1,56 @@
+Climate Conference Project
+Database: https://www.db-fiddle.com/f/pxMci1sLL945KHKYvpe9W6/1
+
+--SELF JOIN: List the names of the members who are providing feedback, and the name of who they are providing feedback to.
+SELECT vips.first_name || " " || vips.last_name AS reviewer,
+peers.first_name || " " || peers.last_name AS reviewee
+FROM vips AS vips
+INNER JOIN vips AS peers
+ON vips.provides_feedback_to = peers.member_id
+ORDER BY reviewer;
+
+--LEFT JOIN and CASE: List all of the member names and whether they made a reservation for the Thank You dinner.
+SELECT vips.first_name || " " || vips.last_name AS member,
+CASE
+    WHEN dinner_rsvp = 1 THEN 'Yes'
+    ELSE 'No'
+    END AS dinner_reservation
+FROM vips
+LEFT join reservations
+ON vips.member_id = reservations.member_id
+ORDER BY member;
+
+--MULTIPLE JOINs: Display the name of all the members and the name of the hotel they will be staying at.
+SELECT vips.first_name || " " || vips.last_name AS member, hotels.hotel_name
+FROM vips
+	LEFT JOIN reservations 
+	ON vips.member_id = reservations.member_id
+		LEFT JOIN hotels
+        ON hotels.hotel_id = reservations.hotel
+ORDER BY hotels.hotel_name;
+
+
+--INNER JOIN: Display only the members who will be holding an event, and the event name and type.
+SELECT vips.first_name || " " || vips.last_name AS member, events.event_name, events.event_type
+FROM vips
+INNER JOIN events
+ON vips.event = events.event_id
+ORDER BY events.event_type;
+
+--Query with a Subquery: Display the members who will be holding a workshop at the conference.
+SELECT vips.first_name || " " || vips.last_name AS member
+FROM vips
+WHERE vips.event IN
+(SELECT event_id 
+FROM events
+WHERE events.event_type = 'Workshop');
+
+--Query with a Subquery and Left Join: Display the members who will be staying at the Marriott hotel.
+SELECT vips.first_name || " " || vips.last_name AS member
+FROM vips
+LEFT JOIN reservations
+ON vips.member_id = reservations.member_id
+WHERE reservations.hotel IN
+(SELECT hotel_id
+ FROM hotels
+ WHERE hotel_name = "Marriott");
